@@ -9,6 +9,7 @@ const productRoute = require('./routes/product.route');
 const cartegoryRoute = require('./routes/cartegory.route');
 const globalHandler = require('./controllers/error.controller');
 const xss = require('xss-clean');
+const { swaggerUi, swaggerDocs } = require('../swagger');
 
 const app = express();
 
@@ -50,6 +51,8 @@ app.use(express.urlencoded({ extended: true }));
 
 // Data sanitization against XSS
 app.use(xss());
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 app.use('/api/v1/auth', authRoute);
 
