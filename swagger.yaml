@@ -1,277 +1,186 @@
 openapi: 3.0.0
 info:
-  title: Excel Agri
-  version: 1.0.0
-  description: Documentation.
-servers:
-  - url: https://excelagri.onrender.com
-    description: Hosted on Render
+  title: E X C E L API
+  description: API documentation for E X C E L application.
+  version: 1.2
+
 paths:
-  /api/v1/auth/forgotPassword:
-    post:
-      description: ''
-      parameters: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              example:
-                form: []
-                raw: "{\n  \"email\":\"joeltest@gmail.com\"\n}"
-                type: json
-              type: object
-      responses: {}
-      summary: forgot Password
-  /api/v1/auth/login:
-    post:
-      description: ''
-      parameters: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              example:
-                form: []
-                raw: "{\n  \"email\":\"joeltest@gmail.com\",\n  \"password\":\"joeltest@gmail.com\"\
-                  \n}"
-                type: json
-              type: object
-      responses: {}
-      summary: login
-  /api/v1/auth/resetpassword:
-    post:
-      description: ''
-      parameters: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              example:
-                form: []
-                raw: "{\n  \"otpCode\":\"960957\",\n  \"password\":\"Joelleeee\",\n\
-                  \  \"passwordConfirm\":\"lee\"\n}"
-                type: json
-              type: object
-      responses: {}
-      summary: reset Passwword
   /api/v1/auth/signup:
     post:
-      description: ''
-      parameters: []
+      summary: Register a new user
       requestBody:
+        required: true
         content:
           application/json:
             schema:
-              example:
-                form: []
-                raw: "{\n  \"name\":\"Joel Odufu\",\n  \"email\":\"joeltest@gmail.com\"\
-                  ,\n  \"password\":\"joeltest@gmail.com\"\n}"
-                type: json
               type: object
-      responses: {}
-      summary: register
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+              example:
+                name: "Joel Odufu"
+                email: "joeltest@gmail.com"
+                password: "joeltest@gmail.com"
+      responses:
+        '200':
+          description: Successful registration
+          
   /api/v1/auth/verify:
     post:
-      description: ''
-      parameters: []
+      summary: Verify OTP
       requestBody:
+        required: true
         content:
           application/json:
             schema:
-              example:
-                form: []
-                raw: "{\n  \"otpCode\":\"498007\"\n}"
-                type: json
               type: object
-      responses: {}
-      summary: verifyOTP
-  /api/v1/brand/deletebrand/67321b503a91f6b6e26b84c3:
-    delete:
-      description: ''
-      parameters: []
-      responses: {}
-      summary: Delete Single
-  /api/v1/brand/editBrand/67321b503a91f6b6e26b84c3:
-    put:
-      description: ''
-      parameters: []
-      requestBody:
-        content:
-          application/json:
-            schema:
+              properties:
+                otpCode:
+                  type: string
               example:
-                form: []
-                raw: "{\n  \"title\":\"Emerald \",\n  \"Description\":\"for Shoes\
-                  \ Only\",\n  \"image\":\"image\"\n}"
-                type: json
-              type: object
-      responses: {}
-      summary: Edit
-  /api/v1/brand/getbrand/67321b503a91f6b6e26b84c3:
-    get:
-      description: ''
-      parameters: []
-      responses: {}
-      summary: Get Single
-  /api/v1/brand/getbrands:
-    get:
-      description: ''
-      parameters: []
-      responses: {}
-      summary: Get All Brands
-  /api/v1/brand/postBrand:
+                otpCode: "498007"
+      responses:
+        '200':
+          description: OTP verified successfully
+
+  /api/v1/auth/login:
     post:
-      description: ''
-      parameters: []
+      summary: Login user
       requestBody:
+        required: true
         content:
           application/json:
             schema:
-              example:
-                form: []
-                raw: "{\n  \"title\":\"Sednoo\",\n  \"Description\":\"for Shoes Only\"\
-                  ,\n  \"image\":\"image file location\"\n}"
-                type: json
               type: object
-      responses: {}
-      summary: create new
-  /api/v1/cartegory/deletecartegory/673224e1134b14d663c65b44:
-    delete:
-      description: ''
-      parameters: []
-      responses: {}
-      summary: Delete Single
-  /api/v1/cartegory/editcartegory/673224e1134b14d663c65b44:
-    put:
-      description: ''
-      parameters: []
-      requestBody:
-        content:
-          application/json:
-            schema:
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
               example:
-                form: []
-                raw: "{\n  \"title\":\"Solderiti \",\n  \"Description\":\"for the\
-                  \ loved ones\",\n  \"image\":\"image\"\n}"
-                type: json
-              type: object
-      responses: {}
-      summary: Edit
-  /api/v1/cartegory/getcartegory/673224e1134b14d663c65b44:
-    get:
-      description: ''
-      parameters: []
-      responses: {}
-      summary: Get Single
-  /api/v1/cartegory/getcartegorys:
-    get:
-      description: ''
-      parameters: []
-      responses: {}
-      summary: Get All Cartegory
-  /api/v1/cartegory/postcartegory:
+                email: "joeltest@gmail.com"
+                password: "joeltest@gmail.com"
+      responses:
+        '200':
+          description: Login successful
+
+  /api/v1/auth/forgotPassword:
     post:
-      description: ''
-      parameters: []
+      summary: Forgot Password
       requestBody:
+        required: true
         content:
           application/json:
             schema:
-              example:
-                form: []
-                raw: "{\n  \"Title\":\"Locals Ulogy\",\n  \"Description\":\"for Shoes\
-                  \ Only\",\n  \"image\":\"image file location\"\n}"
-                type: json
               type: object
-      responses: {}
-      summary: create new
-  /api/v1/product/deleteproduct/6732157e18c48e55aa0e55df:
-    delete:
-      description: ''
-      parameters: []
-      responses: {}
-      summary: Delete Product
-  /api/v1/product/editproduct/6732157e18c48e55aa0e55df:
-    put:
-      description: ''
-      parameters: []
+              properties:
+                email:
+                  type: string
+              example:
+                email: "joeltest@gmail.com"
+      responses:
+        '200':
+          description: Password reset email sent
+
+  /api/v1/auth/resetpassword:
+    post:
+      summary: Reset Password
       requestBody:
+        required: true
         content:
           application/json:
             schema:
-              example:
-                form: []
-                raw: "{\n  \"Name\":\"Shoe of shoes\",\n  \"Description\":\"the best\
-                  \ of all\",\n  \"images\":\"jhhhhhhhhhh\"\n}"
-                type: json
               type: object
-      responses: {}
-      summary: Edit Product
-  /api/v1/product/getproduct/6732157e18c48e55aa0e55df:
-    get:
-      description: ''
-      parameters: []
-      responses: {}
-      summary: get Single Product
-  /api/v1/product/getproducts:
-    get:
-      description: ''
-      parameters: []
-      responses: {}
-      summary: get all products
+              properties:
+                otpCode:
+                  type: string
+                password:
+                  type: string
+                passwordConfirm:
+                  type: string
+              example:
+                otpCode: "960957"
+                password: "Joelleeee"
+                passwordConfirm: "lee"
+      responses:
+        '200':
+          description: Password reset successful
+
   /api/v1/product/postproduct:
     post:
-      description: ''
-      parameters: []
+      summary: Create new product
       requestBody:
+        required: true
         content:
           application/json:
             schema:
-              example:
-                form: []
-                raw: "{\n  \"Name\":\"Shoe of shoes\",\n  \"Description\":\"the best\
-                  \ of all\",\n  \"images\":\"image file location\",\n  \"_user\"\
-                  :\"673210c83dece75cc279bfd1\"\n}"
-                type: json
               type: object
-      responses: {}
-      summary: create new
-  /api/v1/user/activities:
-    get:
-      description: ''
-      parameters: []
-      responses: {}
-      summary: All Activities
-  /api/v1/user/admin/users:
-    get:
-      description: ''
-      parameters: []
-      responses: {}
-      summary: Admin Get Users
-  /api/v1/user/editprofile/6732247b134b14d663c65b3b:
-    put:
-      description: ''
-      parameters: []
+              properties:
+                Name:
+                  type: string
+                Description:
+                  type: string
+                images:
+                  type: string
+                _user:
+                  type: string
+              example:
+                Name: "Shoe of shoes"
+                Description: "the best of all"
+                images: "image file location"
+                _user: "673210c83dece75cc279bfd1"
+      responses:
+        '200':
+          description: Product created successfully
+
+  /api/v1/brand/postBrand:
+    post:
+      summary: Create new brand
       requestBody:
+        required: true
         content:
           application/json:
             schema:
-              example:
-                form: []
-                raw: "{\n  \"name\":\"Ekowoicho Lee\"\n}"
-                type: json
               type: object
-      responses: {}
-      summary: Edit Profile
-  /api/v1/user/getprofile/6732247b134b14d663c65b3b:
-    get:
-      description: ''
-      parameters: []
-      responses: {}
-      summary: Get Profile
-  /api/v1/user/getusers:
-    get:
-      description: ''
-      parameters: []
-      responses: {}
-      summary: Get Users
+              properties:
+                title:
+                  type: string
+                Description:
+                  type: string
+                image:
+                  type: string
+              example:
+                title: "Sednoo"
+                Description: "for Shoes Only"
+                image: "image file location"
+      responses:
+        '200':
+          description: Brand created successfully
+
+  /api/v1/cartegory/postcartegory:
+    post:
+      summary: Create new category
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                Description:
+                  type: string
+                image:
+                  type: string
+              example:
+                title: "Category Title"
+                Description: "Category description"
+                image: "image file location"
+      responses:
+        '200':
+          description: Category created successfully
