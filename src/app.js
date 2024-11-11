@@ -12,7 +12,7 @@ const xss = require('xss-clean');
 const YAML = require('yamljs');
 
 const app = express();
-const swaggerDocument = YAML.load('./swagger.yaml');
+const swaggerDocument = YAML.load('../swagger.yaml');
 
 app.use(
   session({
