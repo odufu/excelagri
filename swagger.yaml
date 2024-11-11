@@ -2,30 +2,276 @@ openapi: 3.0.0
 info:
   title: Excel Agri
   version: 1.0.0
-  description: API documentation
+  description: Documentation.
 servers:
   - url: https://excelagri.onrender.com
     description: Hosted on Render
-
 paths:
-  /users:
+  /api/v1/auth/forgotPassword:
+    post:
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example:
+                form: []
+                raw: "{\n  \"email\":\"joeltest@gmail.com\"\n}"
+                type: json
+              type: object
+      responses: {}
+      summary: forgot Password
+  /api/v1/auth/login:
+    post:
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example:
+                form: []
+                raw: "{\n  \"email\":\"joeltest@gmail.com\",\n  \"password\":\"joeltest@gmail.com\"\
+                  \n}"
+                type: json
+              type: object
+      responses: {}
+      summary: login
+  /api/v1/auth/resetpassword:
+    post:
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example:
+                form: []
+                raw: "{\n  \"otpCode\":\"960957\",\n  \"password\":\"Joelleeee\",\n\
+                  \  \"passwordConfirm\":\"lee\"\n}"
+                type: json
+              type: object
+      responses: {}
+      summary: reset Passwword
+  /api/v1/auth/signup:
+    post:
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example:
+                form: []
+                raw: "{\n  \"name\":\"Joel Odufu\",\n  \"email\":\"joeltest@gmail.com\"\
+                  ,\n  \"password\":\"joeltest@gmail.com\"\n}"
+                type: json
+              type: object
+      responses: {}
+      summary: register
+  /api/v1/auth/verify:
+    post:
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example:
+                form: []
+                raw: "{\n  \"otpCode\":\"498007\"\n}"
+                type: json
+              type: object
+      responses: {}
+      summary: verifyOTP
+  /api/v1/brand/deletebrand/67321b503a91f6b6e26b84c3:
+    delete:
+      description: ''
+      parameters: []
+      responses: {}
+      summary: Delete Single
+  /api/v1/brand/editBrand/67321b503a91f6b6e26b84c3:
+    put:
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example:
+                form: []
+                raw: "{\n  \"title\":\"Emerald \",\n  \"Description\":\"for Shoes\
+                  \ Only\",\n  \"image\":\"image\"\n}"
+                type: json
+              type: object
+      responses: {}
+      summary: Edit
+  /api/v1/brand/getbrand/67321b503a91f6b6e26b84c3:
     get:
-      summary: Retrieve a list of users
-      responses:
-        '200':
-          description: A list of users
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    id:
-                      type: integer
-                      description: The user ID
-                      example: 1
-                    name:
-                      type: string
-                      description: The user's name
-                      example: John Doe
+      description: ''
+      parameters: []
+      responses: {}
+      summary: Get Single
+  /api/v1/brand/getbrands:
+    get:
+      description: ''
+      parameters: []
+      responses: {}
+      summary: Get All Brands
+  /api/v1/brand/postBrand:
+    post:
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example:
+                form: []
+                raw: "{\n  \"title\":\"Sednoo\",\n  \"Description\":\"for Shoes Only\"\
+                  ,\n  \"image\":\"image file location\"\n}"
+                type: json
+              type: object
+      responses: {}
+      summary: create new
+  /api/v1/cartegory/deletecartegory/673224e1134b14d663c65b44:
+    delete:
+      description: ''
+      parameters: []
+      responses: {}
+      summary: Delete Single
+  /api/v1/cartegory/editcartegory/673224e1134b14d663c65b44:
+    put:
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example:
+                form: []
+                raw: "{\n  \"title\":\"Solderiti \",\n  \"Description\":\"for the\
+                  \ loved ones\",\n  \"image\":\"image\"\n}"
+                type: json
+              type: object
+      responses: {}
+      summary: Edit
+  /api/v1/cartegory/getcartegory/673224e1134b14d663c65b44:
+    get:
+      description: ''
+      parameters: []
+      responses: {}
+      summary: Get Single
+  /api/v1/cartegory/getcartegorys:
+    get:
+      description: ''
+      parameters: []
+      responses: {}
+      summary: Get All Cartegory
+  /api/v1/cartegory/postcartegory:
+    post:
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example:
+                form: []
+                raw: "{\n  \"Title\":\"Locals Ulogy\",\n  \"Description\":\"for Shoes\
+                  \ Only\",\n  \"image\":\"image file location\"\n}"
+                type: json
+              type: object
+      responses: {}
+      summary: create new
+  /api/v1/product/deleteproduct/6732157e18c48e55aa0e55df:
+    delete:
+      description: ''
+      parameters: []
+      responses: {}
+      summary: Delete Product
+  /api/v1/product/editproduct/6732157e18c48e55aa0e55df:
+    put:
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example:
+                form: []
+                raw: "{\n  \"Name\":\"Shoe of shoes\",\n  \"Description\":\"the best\
+                  \ of all\",\n  \"images\":\"jhhhhhhhhhh\"\n}"
+                type: json
+              type: object
+      responses: {}
+      summary: Edit Product
+  /api/v1/product/getproduct/6732157e18c48e55aa0e55df:
+    get:
+      description: ''
+      parameters: []
+      responses: {}
+      summary: get Single Product
+  /api/v1/product/getproducts:
+    get:
+      description: ''
+      parameters: []
+      responses: {}
+      summary: get all products
+  /api/v1/product/postproduct:
+    post:
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example:
+                form: []
+                raw: "{\n  \"Name\":\"Shoe of shoes\",\n  \"Description\":\"the best\
+                  \ of all\",\n  \"images\":\"image file location\",\n  \"_user\"\
+                  :\"673210c83dece75cc279bfd1\"\n}"
+                type: json
+              type: object
+      responses: {}
+      summary: create new
+  /api/v1/user/activities:
+    get:
+      description: ''
+      parameters: []
+      responses: {}
+      summary: All Activities
+  /api/v1/user/admin/users:
+    get:
+      description: ''
+      parameters: []
+      responses: {}
+      summary: Admin Get Users
+  /api/v1/user/editprofile/6732247b134b14d663c65b3b:
+    put:
+      description: ''
+      parameters: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              example:
+                form: []
+                raw: "{\n  \"name\":\"Ekowoicho Lee\"\n}"
+                type: json
+              type: object
+      responses: {}
+      summary: Edit Profile
+  /api/v1/user/getprofile/6732247b134b14d663c65b3b:
+    get:
+      description: ''
+      parameters: []
+      responses: {}
+      summary: Get Profile
+  /api/v1/user/getusers:
+    get:
+      description: ''
+      parameters: []
+      responses: {}
+      summary: Get Users
