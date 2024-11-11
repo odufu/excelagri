@@ -1,4 +1,5 @@
 const express = require('express');
+const swaggerUi = require('swagger-ui-express');
 const session = require('express-session');
 const helmet = require('helmet');
 const cors = require('cors');
@@ -9,10 +10,11 @@ const productRoute = require('./routes/product.route');
 const cartegoryRoute = require('./routes/cartegory.route');
 const globalHandler = require('./controllers/error.controller');
 const xss = require('xss-clean');
+const path = require('path');
 const YAML = require('yamljs');
+const swaggerDocument = YAML.load(path.join(__dirname, '../swagger.yaml'));
 
 const app = express();
-const swaggerDocument = YAML.load('../swagger.yaml');
 
 app.use(
   session({
