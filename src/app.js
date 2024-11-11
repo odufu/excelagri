@@ -9,9 +9,10 @@ const productRoute = require('./routes/product.route');
 const cartegoryRoute = require('./routes/cartegory.route');
 const globalHandler = require('./controllers/error.controller');
 const xss = require('xss-clean');
-const { swaggerUi, swaggerDocs } = require('../swagger');
+const YAML = require('yamljs');
 
 const app = express();
+const swaggerDocument = YAML.load('./swagger.yaml');
 
 app.use(
   session({
@@ -52,7 +53,7 @@ app.use(express.urlencoded({ extended: true }));
 // Data sanitization against XSS
 app.use(xss());
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use('/api/v1/auth', authRoute);
 
