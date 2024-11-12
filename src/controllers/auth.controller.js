@@ -105,7 +105,7 @@ exports.signup = catchAsync(async (req, res, next) => {
       message,
     });
 
-    createSendToken(newUser, 201, res);
+    createSendToken(newUser, 200, res);
   } catch (err) {
     return res.status(500).send({
       success: false,
@@ -174,7 +174,7 @@ exports.adminSignup = catchAsync(async (req, res, next) => {
       message,
     });
 
-    createSendToken(newUser, 201, res);
+    createSendToken(newUser, 200, res);
   } catch (err) {
     return res.status(500).send({
       success: false,
