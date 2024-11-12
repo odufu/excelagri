@@ -14,6 +14,8 @@ tags:
     description: "User-related endpoints"
   - name: "Products"
     description: "Product-related endpoints"
+  - name: "Brand"
+    description: "Brand-related endpoints"
 
 securityDefinitions:
   Bearer:
@@ -50,7 +52,100 @@ paths:
         "200":
           description: "User registered successfully"
 
-  # Users route with authorization
+  /auth/verifyOTP:
+    post:
+      tags:
+        - "Authentication"
+      summary: "Verify OTP"
+      description: "Verify OTP for user registration"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "OTP code for verification"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              otpCode:
+                type: "string"
+                example: "498007"
+      responses:
+        "200":
+          description: "OTP verified successfully"
+
+  /auth/login:
+    post:
+      tags:
+        - "Authentication"
+      summary: "Login"
+      description: "Authenticate user login"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "User login details"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              email:
+                type: "string"
+                example: "joeltest@gmail.com"
+              password:
+                type: "string"
+                example: "joeltest@gmail.com"
+      responses:
+        "200":
+          description: "User logged in successfully"
+
+  /auth/forgotPassword:
+    post:
+      tags:
+        - "Authentication"
+      summary: "Forgot Password"
+      description: "Initiate password reset"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Email for password reset"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              email:
+                type: "string"
+                example: "joeltest@gmail.com"
+      responses:
+        "200":
+          description: "Password reset link sent"
+
+  /auth/resetpassword:
+    post:
+      tags:
+        - "Authentication"
+      summary: "Reset Password"
+      description: "Reset user password"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New password details"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              otpCode:
+                type: "string"
+                example: "960957"
+              password:
+                type: "string"
+                example: "Joelleeee"
+              passwordConfirm:
+                type: "string"
+                example: "lee"
+      responses:
+        "200":
+          description: "Password reset successfully"
+
+# Users route with authorization
 
   /user/getusers:
     get:
@@ -256,3 +351,116 @@ paths:
       responses:
         "200":
           description: "Product deleted successfully"
+
+  # Brand Endpoints (with token authorization)
+
+  /brand/postBrand:
+    post:
+      tags:
+        - "Brand"
+      summary: "Create a new brand"
+      description: "Endpoint to create a new brand"
+      security:
+        - Bearer: []
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Brand details"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              title:
+                type: "string"
+                example: "Sednoo"
+              Description:
+                type: "string"
+                example: "for Shoes Only"
+              image:
+                type: "string"
+                example: "image file location"
+      responses:
+        "200":
+          description: "Brand created successfully"
+
+  /brand/getbrands:
+    get:
+      tags:
+        - "Brand"
+      summary: "Get all brands"
+      description: "Fetches a list of all brands."
+      security:
+        - Bearer: []
+      responses:
+        "200":
+          description: "A list of brands retrieved successfully"
+
+  /brand/getbrand/{id}:
+    get:
+      tags:
+        - "Brand"
+      summary: "Get a single brand by ID"
+      description: "Fetches a brand by its ID."
+      security:
+        - Bearer: []
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          type: "string"
+          example: "67321b503a91f6b6e26b84c3"
+      responses:
+        "200":
+          description: "Brand retrieved successfully"
+
+  /brand/editBrand/{id}:
+    put:
+      tags:
+        - "Brand"
+      summary: "Edit a specific brand by ID"
+      description: "Edits the details of a brand by its ID."
+      security:
+        - Bearer: []
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          type: "string"
+          example: "67321b503a91f6b6e26b84c3"
+        - in: "body"
+          name: "body"
+          description: "Updated brand details"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              title:
+                type: "string"
+                example: "Sednoo"
+              Description:
+                type: "string"
+                example: "for Shoes Only"
+              image:
+                type: "string"
+                example: "image file location"
+      responses:
+        "200":
+          description: "Brand updated successfully"
+
+  /brand/deletebrand/{id}:
+    delete:
+      tags:
+        - "Brand"
+      summary: "Delete a brand by ID"
+      description: "Deletes a brand by its ID."
+      security:
+        - Bearer: []
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          type: "string"
+          example: "67321b503a91f6b6e26b84c3"
+      responses:
+        "200":
+          description: "Brand deleted successfully"
