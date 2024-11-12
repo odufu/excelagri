@@ -54,7 +54,7 @@ paths:
         "200":
           description: "User registered successfully"
 
-  /auth/verifyOTP:
+  /auth/verify:
     post:
       tags:
         - "Authentication"
@@ -356,7 +356,7 @@ paths:
 
   # Brand Endpoints (with token authorization)
 
-  /brand/postBrand:
+  /brand/postbrand:
     post:
       tags:
         - "Brand"
@@ -415,7 +415,7 @@ paths:
         "200":
           description: "Brand retrieved successfully"
 
-  /brand/editBrand/{id}:
+  /brand/editbrand/{id}:
     put:
       tags:
         - "Brand"
