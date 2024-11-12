@@ -27,7 +27,7 @@ securityDefinitions:
     description: "JWT token for authorization. Format: 'Bearer {token}'"
 
 paths:
-  /auth/register:
+  /auth/signup:
     post:
       tags:
         - "Authentication"
