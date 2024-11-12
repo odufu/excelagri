@@ -1,6 +1,6 @@
 swagger: "2.0"
 info:
-  description: "API documentation for the application"
+  description: "API documentation for EXCEL AGRI"
   version: "1.0.0"
   title: "EXCEL AGRII"
 
@@ -10,6 +10,17 @@ basePath: "/api/v1"
 tags:
   - name: "Authentication"
     description: "Authentication-related endpoints"
+  - name: "Users"
+    description: "User-related endpoints"
+  - name: "Products"
+    description: "Product-related endpoints"
+
+securityDefinitions:
+  Bearer:
+    type: "apiKey"
+    name: "Authorization"
+    in: "header"
+    description: "JWT token for authorization. Format: 'Bearer {token}'"
 
 paths:
   /auth/register:
@@ -39,95 +50,209 @@ paths:
         "200":
           description: "User registered successfully"
 
-  /auth/verifyOTP:
-    post:
-      tags:
-        - "Authentication"
-      summary: "Verify OTP"
-      description: "Verify OTP for user registration"
-      parameters:
-        - in: "body"
-          name: "body"
-          description: "OTP code for verification"
-          required: true
-          schema:
-            type: "object"
-            properties:
-              otpCode:
-                type: "string"
-                example: "498007"
-      responses:
-        "200":
-          description: "OTP verified successfully"
+  # Users route with authorization
 
-  /auth/login:
-    post:
+  /user/getusers:
+    get:
       tags:
-        - "Authentication"
-      summary: "Login"
-      description: "Authenticate user login"
-      parameters:
-        - in: "body"
-          name: "body"
-          description: "User login details"
-          required: true
-          schema:
-            type: "object"
-            properties:
-              email:
-                type: "string"
-                example: "joeltest@gmail.com"
-              password:
-                type: "string"
-                example: "joeltest@gmail.com"
+        - "Users"
+      summary: "Get all users"
+      description: "Fetches a list of all users."
+      security:
+        - Bearer: []
       responses:
         "200":
-          description: "User logged in successfully"
+          description: "A list of users retrieved successfully"
 
-  /auth/forgotPassword:
-    post:
+  /user/getprofile/{id}:
+    get:
       tags:
-        - "Authentication"
-      summary: "Forgot Password"
-      description: "Initiate password reset"
+        - "Users"
+      summary: "Get user profile by ID"
+      description: "Fetches the profile of a user by their ID."
+      security:
+        - Bearer: []
       parameters:
-        - in: "body"
-          name: "body"
-          description: "Email for password reset"
+        - name: "id"
+          in: "path"
           required: true
-          schema:
-            type: "object"
-            properties:
-              email:
-                type: "string"
-                example: "joeltest@gmail.com"
+          type: "string"
+          example: "6732247b134b14d663c65b3b"
       responses:
         "200":
-          description: "Password reset link sent"
+          description: "User profile retrieved successfully"
 
-  /auth/resetpassword:
-    post:
+  /user/admin/users:
+    get:
       tags:
-        - "Authentication"
-      summary: "Reset Password"
-      description: "Reset user password"
+        - "Users"
+      summary: "Get users by type"
+      description: "Fetches users by type (individual, admin, super user) based on query."
+      security:
+        - Bearer: []
       parameters:
+        - name: "type"
+          in: "query"
+          required: true
+          type: "string"
+          enum: ["individual", "admin", "super user"]
+          example: "admin"
+      responses:
+        "200":
+          description: "Filtered users retrieved successfully"
+
+  /user/editprofile/{id}:
+    put:
+      tags:
+        - "Users"
+      summary: "Edit user profile"
+      description: "Edits the profile of a user by their ID."
+      security:
+        - Bearer: []
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          type: "string"
+          example: "6732247b134b14d663c65b3b"
         - in: "body"
           name: "body"
-          description: "New password details"
+          description: "User profile details to edit"
           required: true
           schema:
             type: "object"
             properties:
-              otpCode:
+              name:
                 type: "string"
-                example: "960957"
-              password:
-                type: "string"
-                example: "Joelleeee"
-              passwordConfirm:
-                type: "string"
-                example: "lee"
+                example: "Ekowoicho Lee"
       responses:
         "200":
-          description: "Password reset successfully"
+          description: "User profile updated successfully"
+
+  /user/activities:
+    get:
+      tags:
+        - "Users"
+      summary: "Get all user activities"
+      description: "Fetches all activities of users in the application."
+      security:
+        - Bearer: []
+      responses:
+        "200":
+          description: "User activities retrieved successfully"
+
+  # Products Endpoints (with token authorization)
+
+  /product/postproduct:
+    post:
+      tags:
+        - "Products"
+      summary: "Create a new product"
+      description: "Endpoint to create a new product"
+      security:
+        - Bearer: []
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Product details"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              Name:
+                type: "string"
+                example: "Shoe of shoes"
+              Description:
+                type: "string"
+                example: "the best of all"
+              images:
+                type: "string"
+                example: "image file location"
+              _user:
+                type: "string"
+                example: "673210c83dece75cc279bfd1"
+      responses:
+        "200":
+          description: "Product created successfully"
+
+  /product/getproducts:
+    get:
+      tags:
+        - "Products"
+      summary: "Get all products"
+      description: "Fetches a list of all products."
+      security:
+        - Bearer: []
+      responses:
+        "200":
+          description: "A list of products retrieved successfully"
+
+  /product/getproduct/{id}:
+    get:
+      tags:
+        - "Products"
+      summary: "Get a single product by ID"
+      description: "Fetches a product by its ID."
+      security:
+        - Bearer: []
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          type: "string"
+          example: "6732157e18c48e55aa0e55df"
+      responses:
+        "200":
+          description: "Product retrieved successfully"
+
+  /product/editproduct/{id}:
+    put:
+      tags:
+        - "Products"
+      summary: "Edit a specific product by ID"
+      description: "Edits the details of a product by its ID."
+      security:
+        - Bearer: []
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          type: "string"
+          example: "6732157e18c48e55aa0e55df"
+        - in: "body"
+          name: "body"
+          description: "Updated product details"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              Name:
+                type: "string"
+                example: "Shoe of shoes"
+              Description:
+                type: "string"
+                example: "the best of all"
+              images:
+                type: "string"
+                example: "jhhhhhhhhhh"
+      responses:
+        "200":
+          description: "Product updated successfully"
+
+  /product/deleteproduct/{id}:
+    delete:
+      tags:
+        - "Products"
+      summary: "Delete a product by ID"
+      description: "Deletes a product by its ID."
+      security:
+        - Bearer: []
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          type: "string"
+          example: "6732157e18c48e55aa0e55df"
+      responses:
+        "200":
+          description: "Product deleted successfully"
