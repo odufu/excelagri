@@ -4,7 +4,7 @@ info:
   version: "1.0.0"
   title: "EXCEL AGRII"
 
-host: "https://excelagri.onrender.com"
+host: "excelagri.onrender.com"
 basePath: "/api/v1"
 
 tags:
