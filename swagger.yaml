@@ -16,6 +16,8 @@ tags:
     description: "Product-related endpoints"
   - name: "Brand"
     description: "Brand-related endpoints"
+  - name: "Category"
+    description: "Category-related endpoints"
 
 securityDefinitions:
   Bearer:
@@ -464,3 +466,116 @@ paths:
       responses:
         "200":
           description: "Brand deleted successfully"
+
+# Category Endpoints (with token authorization)
+
+  /cartegory/postcartegory:
+    post:
+      tags:
+        - "Category"
+      summary: "Create a new category"
+      description: "Endpoint to create a new category"
+      security:
+        - Bearer: []
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Category details"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              Title:
+                type: "string"
+                example: "Locals Ulogy"
+              Description:
+                type: "string"
+                example: "for Shoes Only"
+              image:
+                type: "string"
+                example: "image file location"
+      responses:
+        "200":
+          description: "Category created successfully"
+
+  /cartegory/getcartegorys:
+    get:
+      tags:
+        - "Category"
+      summary: "Get all categories"
+      description: "Fetches a list of all categories."
+      security:
+        - Bearer: []
+      responses:
+        "200":
+          description: "A list of categories retrieved successfully"
+
+  /cartegory/getcartegory/{id}:
+    get:
+      tags:
+        - "Category"
+      summary: "Get a single category by ID"
+      description: "Fetches a category by its ID."
+      security:
+        - Bearer: []
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          type: "string"
+          example: "673224e1134b14d663c65b44"
+      responses:
+        "200":
+          description: "Category retrieved successfully"
+
+  /cartegory/editcartegory/{id}:
+    put:
+      tags:
+        - "Category"
+      summary: "Edit a specific category by ID"
+      description: "Edits the details of a category by its ID."
+      security:
+        - Bearer: []
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          type: "string"
+          example: "673224e1134b14d663c65b44"
+        - in: "body"
+          name: "body"
+          description: "Updated category details"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              title:
+                type: "string"
+                example: "Solderiti"
+              Description:
+                type: "string"
+                example: "for the loved ones"
+              image:
+                type: "string"
+                example: "image"
+      responses:
+        "200":
+          description: "Category updated successfully"
+
+  /cartegory/deletecartegory/{id}:
+    delete:
+      tags:
+        - "Category"
+      summary: "Delete a category by ID"
+      description: "Deletes a category by its ID."
+      security:
+        - Bearer: []
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          type: "string"
+          example: "673224e1134b14d663c65b44"
+      responses:
+        "200":
+          description: "Category deleted successfully"
