@@ -1,186 +1,133 @@
-openapi: 3.0.0
+swagger: "2.0"
 info:
-  title: E X C E L API
-  description: API documentation for E X C E L application.
-  version: 1.2
+  description: "API documentation for the application"
+  version: "1.0.0"
+  title: "EXCEL AGRII"
+
+host: "https://excelagri.onrender.com"
+basePath: "/api/v1"
+
+tags:
+  - name: "Authentication"
+    description: "Authentication-related endpoints"
 
 paths:
-  /api/v1/auth/signup:
+  /auth/register:
     post:
-      summary: Register a new user
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                name:
-                  type: string
-                email:
-                  type: string
-                password:
-                  type: string
-              example:
-                name: "Joel Odufu"
-                email: "joeltest@gmail.com"
-                password: "joeltest@gmail.com"
+      tags:
+        - "Authentication"
+      summary: "Register a new user"
+      description: "Endpoint to register a new user"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "User registration details"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              name:
+                type: "string"
+                example: "Joel Odufu"
+              email:
+                type: "string"
+                example: "joeltest@gmail.com"
+              password:
+                type: "string"
+                example: "joeltest@gmail.com"
       responses:
-        '200':
-          description: Successful registration
-          
-  /api/v1/auth/verify:
-    post:
-      summary: Verify OTP
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                otpCode:
-                  type: string
-              example:
-                otpCode: "498007"
-      responses:
-        '200':
-          description: OTP verified successfully
+        "200":
+          description: "User registered successfully"
 
-  /api/v1/auth/login:
+  /auth/verifyOTP:
     post:
-      summary: Login user
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                password:
-                  type: string
-              example:
-                email: "joeltest@gmail.com"
-                password: "joeltest@gmail.com"
+      tags:
+        - "Authentication"
+      summary: "Verify OTP"
+      description: "Verify OTP for user registration"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "OTP code for verification"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              otpCode:
+                type: "string"
+                example: "498007"
       responses:
-        '200':
-          description: Login successful
+        "200":
+          description: "OTP verified successfully"
 
-  /api/v1/auth/forgotPassword:
+  /auth/login:
     post:
-      summary: Forgot Password
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                email:
-                  type: string
-              example:
-                email: "joeltest@gmail.com"
+      tags:
+        - "Authentication"
+      summary: "Login"
+      description: "Authenticate user login"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "User login details"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              email:
+                type: "string"
+                example: "joeltest@gmail.com"
+              password:
+                type: "string"
+                example: "joeltest@gmail.com"
       responses:
-        '200':
-          description: Password reset email sent
+        "200":
+          description: "User logged in successfully"
 
-  /api/v1/auth/resetpassword:
+  /auth/forgotPassword:
     post:
-      summary: Reset Password
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                otpCode:
-                  type: string
-                password:
-                  type: string
-                passwordConfirm:
-                  type: string
-              example:
-                otpCode: "960957"
-                password: "Joelleeee"
-                passwordConfirm: "lee"
+      tags:
+        - "Authentication"
+      summary: "Forgot Password"
+      description: "Initiate password reset"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Email for password reset"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              email:
+                type: "string"
+                example: "joeltest@gmail.com"
       responses:
-        '200':
-          description: Password reset successful
+        "200":
+          description: "Password reset link sent"
 
-  /api/v1/product/postproduct:
+  /auth/resetpassword:
     post:
-      summary: Create new product
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                Name:
-                  type: string
-                Description:
-                  type: string
-                images:
-                  type: string
-                _user:
-                  type: string
-              example:
-                Name: "Shoe of shoes"
-                Description: "the best of all"
-                images: "image file location"
-                _user: "673210c83dece75cc279bfd1"
+      tags:
+        - "Authentication"
+      summary: "Reset Password"
+      description: "Reset user password"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "New password details"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              otpCode:
+                type: "string"
+                example: "960957"
+              password:
+                type: "string"
+                example: "Joelleeee"
+              passwordConfirm:
+                type: "string"
+                example: "lee"
       responses:
-        '200':
-          description: Product created successfully
-
-  /api/v1/brand/postBrand:
-    post:
-      summary: Create new brand
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                title:
-                  type: string
-                Description:
-                  type: string
-                image:
-                  type: string
-              example:
-                title: "Sednoo"
-                Description: "for Shoes Only"
-                image: "image file location"
-      responses:
-        '200':
-          description: Brand created successfully
-
-  /api/v1/cartegory/postcartegory:
-    post:
-      summary: Create new category
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                title:
-                  type: string
-                Description:
-                  type: string
-                image:
-                  type: string
-              example:
-                title: "Category Title"
-                Description: "Category description"
-                image: "image file location"
-      responses:
-        '200':
-          description: Category created successfully
+        "200":
+          description: "Password reset successfully"
